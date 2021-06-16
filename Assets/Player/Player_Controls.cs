@@ -6,6 +6,7 @@ public class Player_Controls : MonoBehaviour
     public float speedConstant = 0.01f;
 
     public GameObject DownLimitObject;
+    public GameObject LHObject;
 
     private bool playerDownLimit = false;
     private float downSpeed = 1.0f;
@@ -16,7 +17,7 @@ public class Player_Controls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        GetComponent<Rigidbody>().Sleep();
     }
 
     // Update is called once per frame
@@ -73,7 +74,7 @@ public class Player_Controls : MonoBehaviour
             {
                 Debug.Log("End");
                 
-                // TODO restart level
+                // TODO end level
             }
         }
 
@@ -93,4 +94,21 @@ public class Player_Controls : MonoBehaviour
         }
     }
 
+    // Change color on color changer
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("ColorChanger"))
+        {
+            Material mat = GetComponent<MeshRenderer>().material;
+            
+            if (mat.color == LHObject.GetComponent<LevelHandler>().material_1.color)
+            {
+                GetComponent<MeshRenderer>().material = LHObject.GetComponent<LevelHandler>().material_2;
+            }
+            else
+            {
+                GetComponent<MeshRenderer>().material = LHObject.GetComponent<LevelHandler>().material_1;
+            }
+        }
+    }
 }

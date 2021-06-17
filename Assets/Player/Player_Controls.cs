@@ -8,6 +8,8 @@ public class Player_Controls : MonoBehaviour
     public GameObject DownLimitObject;
     public GameObject LHObject;
 
+    public Material PlayerMaterial;
+
     private bool playerDownLimit = false;
     private float downSpeed = 1.0f;
     private float rightSpeed = 1.0f;
@@ -17,7 +19,8 @@ public class Player_Controls : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GetComponent<Rigidbody>().Sleep();
+        // Starting material
+        GetComponent<MeshRenderer>().material = LHObject.GetComponent<LevelHandler>().material_1;
     }
 
     // Update is called once per frame
@@ -72,9 +75,9 @@ public class Player_Controls : MonoBehaviour
         {
             if (ms.material.color != GetComponent<MeshRenderer>().material.color)
             {
-                Debug.Log("End");
+                Debug.Log("END LEVEL");
                 
-                // TODO end level
+                LHObject.gameObject.GetComponent<LevelHandler>().GameOver();
             }
         }
 

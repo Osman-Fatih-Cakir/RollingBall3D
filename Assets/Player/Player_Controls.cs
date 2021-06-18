@@ -4,67 +4,49 @@ using UnityEngine;
 public class Player_Controls : MonoBehaviour
 {
     public float speedConstant = 0.01f;
-
     public GameObject DownLimitObject;
     public GameObject LHObject;
-
-    public Material PlayerMaterial;
-
+    public Joystick JoystickObjcet;
+    private bool isControlsActive = false; // TODO after main menu, handle this variable
     private bool playerDownLimit = false;
-    private float downSpeed = 1.0f;
-    private float rightSpeed = 1.0f;
-    private float leftSpeed = 1.0f;
-    private float upSpeed = 1.0f;
+    private float horizontalMove = 0.0f;
+    private float verticalMove = 0.0f;
 
     // Start is called before the first frame update
     void Start()
     {
         // Starting material
         GetComponent<MeshRenderer>().material = LHObject.GetComponent<LevelHandler>().material_1;
+
+        isControlsActive = true; // TODO change it from here to level loading
     }
 
     // Update is called once per frame
     void Update()
     {
-        foreach(Touch touch in Input.touches)
+        // Move player with joystick
+        if (isControlsActive)
         {
-            // Move player
-            if (touch.deltaPosition.x > 0.01) // Right
-            {
-                GetComponent<Transform>().Translate(touch.deltaPosition.x * speedConstant * rightSpeed, 0, 0);
-            }
-            else if (touch.deltaPosition.x < -0.01) // Left
-            {
-                GetComponent<Transform>().Translate(touch.deltaPosition.x * speedConstant * leftSpeed, 0, 0);
-            }
-            if (touch.deltaPosition.y < -0.01) // Down
-            {
-                if (playerDownLimit)
-                    downSpeed = 0.0f;
-                else
-                    downSpeed = 1.0f;
-                GetComponent<Transform>().Translate(0, 0, touch.deltaPosition.y * speedConstant * downSpeed);
-            }
-            else if (touch.deltaPosition.y > 0.01 ) // Up
-            {
-                GetComponent<Transform>().Translate(0, 0, touch.deltaPosition.y * speedConstant * upSpeed);
-            }
+            horizontalMove = JoystickObjcet.Horizontal * speedConstant;
+            verticalMove = JoystickObjcet.Vertical * speedConstant;
 
-            //////////// Note sure if here is working
-
-            // Check if the player exceed limits
-            Transform limit = DownLimitObject.GetComponent<Transform>();
-            Transform playerTransform = GetComponent<Transform>();
-            if (limit.position.z - playerTransform.position.z > 0)
-            {
-                playerTransform.SetPositionAndRotation(new Vector3(
-                    playerTransform.position.x, playerTransform.position.y, limit.position.z + 1),
-                    playerTransform.rotation
-                );
-            }
-            ///////////
-
+            GetComponent<Transform>().Translate(horizontalMove, 0, 0); // Horizontal
+            GetComponent<Transform>().Translate(0, 0, verticalMove); // Vertical
         }
+
+        //////////// Note sure if here is working
+
+        // Check if the player exceed limits
+        Transform limit = DownLimitObject.GetComponent<Transform>();
+        Transform playerTransform = GetComponent<Transform>();
+        if (limit.position.z - playerTransform.position.z > 0)
+        {
+            playerTransform.SetPositionAndRotation(new Vector3(
+                playerTransform.position.x, playerTransform.position.y, limit.position.z + 1),
+                playerTransform.rotation
+            );
+        }
+        ///////////
     }
 
     void OnCollisionEnter(Collision collision)

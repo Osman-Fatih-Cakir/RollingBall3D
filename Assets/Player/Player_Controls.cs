@@ -7,7 +7,9 @@ public class Player_Controls : MonoBehaviour
     public GameObject DownLimitObject;
     public GameObject LHObject;
     public Joystick JoystickObjcet;
-    private bool isControlsActive = false; // TODO after main menu, handle this variable
+    
+    [HideInInspector]
+    public bool isControlsActive = false; // TODO after main menu, handle this variable
     private bool playerDownLimit = false;
     private float horizontalMove = 0.0f;
     private float verticalMove = 0.0f;
@@ -29,6 +31,12 @@ public class Player_Controls : MonoBehaviour
         {
             horizontalMove = JoystickObjcet.Horizontal * speedConstant;
             verticalMove = JoystickObjcet.Vertical * speedConstant;
+
+            // If the player has reached to down limit, prevent going further
+            if (playerDownLimit && verticalMove < 0)
+            {
+                verticalMove = 0.0f;
+            }
 
             GetComponent<Transform>().Translate(horizontalMove, 0, 0); // Horizontal
             GetComponent<Transform>().Translate(0, 0, verticalMove); // Vertical

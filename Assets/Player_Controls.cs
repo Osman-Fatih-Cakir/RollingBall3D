@@ -61,8 +61,6 @@ public class Player_Controls : MonoBehaviour
         {
             if (ms.material.color != GetComponent<MeshRenderer>().material.color)
             {
-                Debug.Log("END LEVEL");
-                
                 LHObject.gameObject.GetComponent<LevelHandler>().GameOver();
             }
         }
@@ -96,6 +94,15 @@ public class Player_Controls : MonoBehaviour
         else if (collision.gameObject.tag == "DownLimit")
         {
             downLimit = false;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "FinishLimit")
+        {
+            // Level is done
+            LHObject.GetComponent<LevelHandler>().GameOver();
         }
     }
 }

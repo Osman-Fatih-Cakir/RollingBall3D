@@ -54,5 +54,10 @@ public class LevelHandler : MonoBehaviour
         Time.timeScale = 1.0f; // Continue game
         isGameStarted = true;
     }
+
+    public void NextLevel()
+    {
+        
+    }
 }
 

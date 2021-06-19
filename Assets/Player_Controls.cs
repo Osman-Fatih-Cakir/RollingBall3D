@@ -10,7 +10,9 @@ public class Player_Controls : MonoBehaviour
     
     [HideInInspector]
     public bool isControlsActive = false; // TODO after main menu, handle this variable
-    private bool playerDownLimit = false;
+    private bool downLimit = false;
+    private bool leftLimit = false;
+    private bool rightLimit = false;
     private float horizontalMove = 0.0f;
     private float verticalMove = 0.0f;
 
@@ -32,29 +34,23 @@ public class Player_Controls : MonoBehaviour
             horizontalMove = JoystickObjcet.Horizontal * speedConstant;
             verticalMove = JoystickObjcet.Vertical * speedConstant;
 
-            // If the player has reached to down limit, prevent going further
-            if (playerDownLimit && verticalMove < 0)
+            // If the player has reached to a limit, prevent going further
+            if (downLimit && verticalMove < 0)
             {
                 verticalMove = 0.0f;
             }
+            if (leftLimit && horizontalMove < 0)
+            {
+                horizontalMove = 0.0f;
+            }
+            if (rightLimit && horizontalMove > 0)
+            {
+                horizontalMove = 0.0f;
+            }
 
-            GetComponent<Transform>().Translate(horizontalMove, 0, 0); // Horizontal
-            GetComponent<Transform>().Translate(0, 0, verticalMove); // Vertical
+            GetComponent<Transform>().Translate(horizontalMove, 0, 0); // Horizontal move
+            GetComponent<Transform>().Translate(0, 0, verticalMove); // Vertical move
         }
-
-        //////////// Note sure if here is working
-
-        // Check if the player exceed limits
-        Transform limit = DownLimitObject.GetComponent<Transform>();
-        Transform playerTransform = GetComponent<Transform>();
-        if (limit.position.z - playerTransform.position.z > 0)
-        {
-            playerTransform.SetPositionAndRotation(new Vector3(
-                playerTransform.position.x, playerTransform.position.y, limit.position.z + 1),
-                playerTransform.rotation
-            );
-        }
-        ///////////
     }
 
     void OnCollisionEnter(Collision collision)
@@ -71,25 +67,35 @@ public class Player_Controls : MonoBehaviour
             }
         }
 
-        // Down limit of player
-        if (collision.gameObject.layer == 8)
+        // Limits of player
+        if (collision.gameObject.tag == "LeftLimit")
         {
-            playerDownLimit = true;
+            leftLimit = true;
+        }
+        else if (collision.gameObject.tag == "RightLimit")
+        {
+            rightLimit = true;
+        }
+        else if (collision.gameObject.tag == "DownLimit")
+        {
+            downLimit = true;
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        // Down limit of the player
-        if (collision.gameObject.layer == 8)
+        // Limits of the player
+        if (collision.gameObject.tag == "LeftLimit")
         {
-            playerDownLimit = false;
+            leftLimit = false;
         }
-    }
-
-    // Change color on color changer
-    void OnTriggerEnter(Collider other)
-    {
-        //Debug.Log(other.name + " Player side ");
+        else if (collision.gameObject.tag == "RightLimit")
+        {
+            rightLimit = false;
+        }
+        else if (collision.gameObject.tag == "DownLimit")
+        {
+            downLimit = false;
+        }
     }
 }

@@ -19,4 +19,22 @@ public class ColorChangerSc : MonoBehaviour
     {
         
     }
+
+    // Change color on color changer
+    void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log(other.name + " Trigger side ");
+        
+        Material mat = other.gameObject.GetComponent<MeshRenderer>().material;
+        
+        if (mat.color == material_1.color)
+        {
+            other.gameObject.GetComponent<MeshRenderer>().material = material_2;
+        }
+        else
+        {
+            other.gameObject.GetComponent<MeshRenderer>().material = material_1;
+        }
+        
+    }
 }

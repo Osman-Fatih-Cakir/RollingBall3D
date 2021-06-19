@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5094416198516837120}
   - component: {fileID: 5094416198516837121}
+  - component: {fileID: 2475895170637479724}
   m_Layer: 7
   m_Name: ColorChanger
   m_TagString: Untagged
@@ -47,7 +48,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 560394dd2fd7c9b4390c0b3e872b5aff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LHObject: {fileID: 0}
+  material_1: {fileID: 0}
+  material_2: {fileID: 0}
+--- !u!65 &2475895170637479724
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5094416198516837123}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.020754, y: 1, z: 0.13444412}
+  m_Center: {x: -0.03287612, y: 0, z: 0.14275892}
 --- !u!1 &5094416198878901205
 GameObject:
   m_ObjectHideFlags: 0
@@ -249,7 +264,6 @@ GameObject:
   - component: {fileID: 5094416200322324723}
   - component: {fileID: 5094416200322324719}
   - component: {fileID: 5094416200322324718}
-  - component: {fileID: 5094416200322324720}
   m_Layer: 7
   m_Name: UpQuad
   m_TagString: ColorChanger
@@ -320,19 +334,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &5094416200322324720
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5094416200322324722}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 7.547863, z: 6.1232336e-17}
-  m_Center: {x: 0, y: -2.3114157, z: 0}
 --- !u!1 &5094416200484948284
 GameObject:
   m_ObjectHideFlags: 0

@@ -90,18 +90,6 @@ public class Player_Controls : MonoBehaviour
     // Change color on color changer
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("ColorChanger"))
-        {
-            Material mat = GetComponent<MeshRenderer>().material;
-            
-            if (mat.color == LHObject.GetComponent<LevelHandler>().material_1.color)
-            {
-                GetComponent<MeshRenderer>().material = LHObject.GetComponent<LevelHandler>().material_2;
-            }
-            else
-            {
-                GetComponent<MeshRenderer>().material = LHObject.GetComponent<LevelHandler>().material_1;
-            }
-        }
+        //Debug.Log(other.name + " Player side ");
     }
 }

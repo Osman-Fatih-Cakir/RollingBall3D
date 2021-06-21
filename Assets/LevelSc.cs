@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class LevelSc : MonoBehaviour
 {
-    public Material material_1;
-    public Material material_2;
+    public GameObject LHObject;
 
     // Start is called before the first frame update
     void Start()
     {
+        // Get materials from level handler
+        Material material_1 = LHObject.GetComponent<LevelHandler>().material_2;
+        Material material_2 = LHObject.GetComponent<LevelHandler>().material_1;
+
         // Initialize materials for that level
         GameObject f1 = GetComponent<Transform>().GetChild(0).gameObject;
         GameObject f2 = GetComponent<Transform>().GetChild(1).gameObject;

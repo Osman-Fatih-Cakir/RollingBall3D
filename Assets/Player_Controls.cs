@@ -48,6 +48,10 @@ public class Player_Controls : MonoBehaviour
                 horizontalMove = 0.0f;
             }
 
+            if (verticalMove < 0)
+            {
+                verticalMove *= 0.8f;
+            }
             GetComponent<Transform>().Translate(horizontalMove, 0, 0); // Horizontal move
             GetComponent<Transform>().Translate(0, 0, verticalMove); // Vertical move
         }
